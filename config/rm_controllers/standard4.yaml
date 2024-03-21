@@ -37,6 +37,8 @@ controllers:
     publish_rate: 100
     enable_odom_tf: true
     publish_odom_tf: false
+    yaw_vel:
+      k_yaw_vel: 1.0
     power:
       effort_coeff: 5.0
       vel_coeff: 0.006
@@ -80,23 +82,32 @@ controllers:
     type: rm_gimbal_controllers/Controller
     yaw:
       joint: "yaw_joint"
-      pid: { p: 7.5, i: 34.85, d: 0.4, i_clamp_max: 0.21, i_clamp_min: -0.21, antiwindup: true, publish_state: true }
+      pid: { p: 8.0, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0, antiwindup: true, publish_state: true }
       k_chassis_vel: 0.032
-      k_v: 0.05
+      k_v: 1.0
       resistance_compensation:
         resistance: 0.09
         velocity_dead_zone: 0.3
         effort_dead_zone: 0.06
     pitch:
       joint: "pitch_joint"
-      pid: { p: 20.0, i: 80, d: 0.5, i_clamp_max: 0.2, i_clamp_min: -0.2, antiwindup: true, publish_state: true }
-      k_v: 0.09
+      pid: { p: 15.0, i: 8.0, d: 0.0, i_clamp_max: 0.1, i_clamp_min: -0.1, antiwindup: true, publish_state: true }
+      k_v: 0.3
+    pid_yaw_pos: { p: 30.0, i: 0, d: 0.0, i_max: 0.0, i_min: 0.0, antiwindup: true, publish_state: true, max_output: 99 }
+    pid_pitch_pos: { p: 42.0, i: 0, d: 0.0, i_max: 0.0, i_min: 0.0, antiwindup: true, publish_state: true, max_output: 99 }
+    gimbal_des_vel:
+      yaw:
+        lp_cutoff_frequency: 100
+        lp_debug: true
+      pitch:
+        lp_cutoff_frequency: 5
+        lp_debug: true
     chassis_vel:
       num_data: 30
       debug: true
     imu_name: "gimbal_imu"
     feedforward:
-      gravity: 12.2625
+      gravity: 0.0
       enable_gravity_compensation: false
       mass_origin: [ 0.0293,0.0,0.01 ]
     bullet_solver:
@@ -134,3 +145,4 @@ controllers:
     anti_block_threshold: 0.1
     forward_push_threshold: 0.22
     exit_push_threshold: 0.25
+    compute_offset: 0.26

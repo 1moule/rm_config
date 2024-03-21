@@ -46,6 +46,10 @@ controllers:
     publish_rate: 100
     enable_odom_tf: true
     publish_odom_tf: false
+    yaw_vel:
+      k_yaw_vel: 1.0
+      lp_cutoff_frequency: 5
+      lp_debug: true
     power:
       effort_coeff: 2.6
       vel_coeff: 0.0092
